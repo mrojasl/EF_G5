@@ -6,7 +6,7 @@ import com.example.ef_g5.Dto.CarteleraDTO;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.ws.rs.core.Request;
+//import javax.ws.rs.core.Request;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Array;
