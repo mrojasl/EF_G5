@@ -84,7 +84,7 @@ public class CarteleraDao extends BaseDao{
     }
     private static String sql_crear_cartelera="INSERT INTO cartelera (idpelicula, idcine, 3d, doblada, subtitulada, horario) VALUES(?,?,?,?,?,?)";
 
-    public void crearFuncion(CarteleraDTO cartelera) {
+    public void crearCartelera(CarteleraDTO cartelera) {
 
 
         try (Connection connection = this.getConnection();
