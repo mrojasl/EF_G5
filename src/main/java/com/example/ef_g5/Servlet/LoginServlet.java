@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/CarteleraServlet");
 
         } else {
-            session.setAttribute("error","error al iniciar sesión");
+            request.getSession().setAttribute("error","Error al iniciar sesión");
             response.sendRedirect(request.getContextPath());
         }
     }

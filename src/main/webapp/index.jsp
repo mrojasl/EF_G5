@@ -54,9 +54,11 @@
                         <input name="password" type="password" id="form2Example2" class="form-control" />
                         <label class="form-label" for="form2Example2">Contraseña</label>
                     </div>
-                    <% if (request.getParameter("error") != null) { %>
-                    <div class="text-danger mb-2">Error en usuario o contraseña</div>
-                    <%}%>
+                    <% if (session.getAttribute("error") != null) { %>
+                    <div class="text-danger mb-2"><%=session.getAttribute("error")%></div>
+
+                    <%session.removeAttribute("error");
+                    }%>
 
                     <div class="mb-3 mt-4">
                         <button type="submit" class="btn btn-primary btn-user btn-block">
