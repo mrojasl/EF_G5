@@ -2,11 +2,14 @@ package com.example.ef_g5.Daos;
 
 import com.example.ef_g5.Bean.Cine;
 import com.example.ef_g5.Bean.Empleado;
+import com.example.ef_g5.Dto.CarteleraDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class EmpleadoDao extends BaseDao{
 
@@ -78,5 +81,113 @@ public class EmpleadoDao extends BaseDao{
 
         return rol;
     }
+
+
+
+
+
+
+
+
+
+
+
+    // pregunta 4 lista de empleados sin jefe
+    public int  obtenerEmplSinJefe() {
+
+        Integer num = null;
+        String sql = "SELECT count(em.idempleado) as '# sin jefe'\n" +
+                "FROM empleado em\n" +
+                "where em.idjefe is null;";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet resultSet = pstmt.executeQuery();) {
+                while (resultSet.next()) {
+                    num = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return num;
+    }
+
+    // lista de empleados sin jefe
+
+    public ArrayList<Empleado> listasEmpleadosSinJefe() {
+
+        ArrayList<Empleado> listap = new ArrayList<>();
+
+        String sql = "SELECT em.nombre, em.apellido , em.idjefe\n" +
+                "FROM empleado em\n" +
+                "where em.idjefe is null;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet resultSet = pstmt.executeQuery();) {
+                while (resultSet.next()) {
+                    Empleado c = new Empleado();
+                    c.setNombre(resultSet.getString(1));
+                    c.setApellido(resultSet.getString(2));
+                    listap.add(c);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Hubo un error en la conexión!");
+            e.printStackTrace();
+        }
+        return listap;
+    }
+
+    // cantidad peliuclas 3d
+    public int  obtenerPeli3d() {
+
+        Integer num = null;
+        String sql = "SELECT count(ca.idpelicula) FROM cartelera ca\n" +
+                "where ca.3d is not null;";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet resultSet = pstmt.executeQuery();) {
+                while (resultSet.next()) {
+                    num = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return num;
+    }
+    // ##Cadena de cine con la mayor cantidad de películas en cartelera
+
+    public ArrayList<CarteleraDTO> listasCadenaMayor() {
+
+        ArrayList<CarteleraDTO> listap = new ArrayList<>();
+
+        String sql = "select c.nombre_comercial, ci.nombre, count(pe.nombre) as 'cantidad'\n" +
+                "from cadena c\n" +
+                "left join cine ci on (ci.idcadena=c.idcadena) \n" +
+                "left join cartelera ca on (ca.idcine=ci.idcine) \n" +
+                "left join pelicula pe on (ca.idpelicula=pe.idpelicula)\n" +
+                "group by  c.nombre_comercial, ci.nombre\n" +
+                "order by count(pe.nombre) desc\n" +
+                "limit 1;;";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet resultSet = pstmt.executeQuery();) {
+                while (resultSet.next()) {
+                    CarteleraDTO c = new CarteleraDTO();
+                    c.setNombreComercial(resultSet.getString(1));
+                    c.setNombreCine(resultSet.getString(2));
+                    listap.add(c);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Hubo un error en la conexión!");
+            e.printStackTrace();
+        }
+        return listap;
+    }
+
+
 
 }
