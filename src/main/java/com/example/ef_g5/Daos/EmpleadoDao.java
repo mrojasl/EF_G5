@@ -92,7 +92,7 @@ public class EmpleadoDao extends BaseDao{
 
 
 
-    // pregunta 4 lista de empleados sin jefe
+    // pregunta 4 CAntidad de empleados sin jefe
     public int  obtenerEmplSinJefe() {
 
         Integer num = null;
@@ -157,6 +157,28 @@ public class EmpleadoDao extends BaseDao{
         }
         return num;
     }
+
+    //Cantidad de cines cuyos empleados tengan un salario mayor a 9700 (solo el número)
+    public int  CantidadEmpleadoMayor() {
+
+        Integer num = null;
+        String sql = "SELECT count(ci.nombre)\n" +
+                "FROM empleado em\n" +
+                "left join cine ci on (em.idcine=ci.idcine) \n" +
+                "where em.salario > 9699;";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            try (ResultSet resultSet = pstmt.executeQuery();) {
+                while (resultSet.next()) {
+                    num = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return num;
+    }
+
     // ##Cadena de cine con la mayor cantidad de películas en cartelera
 
     public ArrayList<CarteleraDTO> listasCadenaMayor() {
