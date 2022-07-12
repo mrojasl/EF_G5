@@ -26,6 +26,13 @@ public class LoginServlet extends HttpServlet {
 
         Empleado empleado = empleadoDao.validarPass(dni,password);
 
+        if (empleado!=null){
+            session.setAttribute("empleadoLogueado",empleado);
+            session.setMaxInactiveInterval(60*60);
 
+        } else {
+            session.setAttribute("error","error al iniciar sesión");
+            response.sendRedirect(request.getContextPath());
+        }
     }
 }
