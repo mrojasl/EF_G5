@@ -58,6 +58,8 @@ public class CarteleraServlet extends HttpServlet {
         RequestDispatcher requestDispatcher;
         CarteleraDTO carteleraDTO;
 
+        request.setCharacterEncoding("UTF-8");
+
         switch (action){
             case "crearFunciones"->{
                 carteleraDTO =new CarteleraDTO();
