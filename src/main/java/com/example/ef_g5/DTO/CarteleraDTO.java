@@ -5,9 +5,37 @@ public class CarteleraDTO {
     private String nombreComercial;
     private String nombreCine;
     private String nombrePelicula;
+    private int idPelicula;
+    private int idCine;
+
     private int tresD;
     private int doblada;
     private int subtitulada;
+    private String horario;
+
+    public int getIdPelicula() {
+        return idPelicula;
+    }
+
+    public void setIdPelicula(int idPelicula) {
+        this.idPelicula = idPelicula;
+    }
+
+    public int getIdCine() {
+        return idCine;
+    }
+
+    public void setIdCine(int idCine) {
+        this.idCine = idCine;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 
     public String getNombreComercial() {
         return nombreComercial;

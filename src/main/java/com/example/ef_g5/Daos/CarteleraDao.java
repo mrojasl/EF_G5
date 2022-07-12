@@ -1,10 +1,7 @@
 package com.example.ef_g5.Daos;
-import com.example.ef_g5.Bean.Cartelera;
-import com.example.ef_g5.Bean.Cadena;
 import com.example.ef_g5.Bean.Cine;
 import com.example.ef_g5.Bean.Pelicula;
 import com.example.ef_g5.DTO.CarteleraDTO;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -42,5 +39,70 @@ public class CarteleraDao extends BaseDao{
             e.printStackTrace();
         }
         return listap;
+    }
+
+    //PARA PREGUNTA 3 -> CREAR CARTELERA
+    public ArrayList<Pelicula> obtenerPeliculas() {
+
+        ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
+
+        try (Connection conn = this.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM pelicula;");) {
+
+            while (rs.next()) {
+                Pelicula peliculas = new Pelicula();
+                peliculas.setIdPelicula(rs.getInt(1));
+                peliculas.setNombre(rs.getString(2));
+
+                listaPeliculas.add(peliculas);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listaPeliculas;
+    }
+    public ArrayList<Cine> obtenerCine() {
+
+        ArrayList<Cine> listaCine = new ArrayList<>();
+
+        try (Connection conn = this.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT idcine, nombre FROM cine;");) {
+
+            while (rs.next()) {
+                Cine cine = new Cine();
+                cine.setIdCine(rs.getInt(1));
+                cine.setNombre(rs.getString(2));
+
+                listaCine.add(cine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listaCine;
+    }
+    private static String sql_crear_cartelera="INSERT INTO cartelera (idpelicula, idcine, 3d, doblada, subtitulada, horario) VALUES(?,?,?,?,?,?)";
+
+    public void crearFuncion(CarteleraDTO cartelera) {
+
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql_crear_cartelera);) {
+
+            pstmt.setInt(1, cartelera.getIdPelicula());
+            pstmt.setInt(2, cartelera.getIdCine());
+            pstmt.setInt(3, cartelera.getTresD());
+            pstmt.setInt(4, cartelera.getDoblada());
+            pstmt.setInt(5, cartelera.getSubtitulada());
+            pstmt.setString(6, cartelera.getHorario());
+
+            pstmt.executeUpdate();
+
+        }catch (SQLException error) {
+            error.printStackTrace();
+        }
     }
 }
