@@ -54,4 +54,29 @@ public class EmpleadoDao extends BaseDao{
         }
     }
 
+    public String ObtenerRol(int id){
+        String sql = "select nombre from rol inner join rolempleado on (rol.idrol=rolempleado.idrol)\n" +
+                "where idempleado=?;";
+
+        String rol = null;
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+                while (rs.next()) {
+                    rol = (rs.getString(1));
+                }
+            }
+
+        } catch (SQLException error) {
+            error.printStackTrace();
+        }
+
+
+        return rol;
+    }
+
 }

@@ -27,8 +27,14 @@ public class LoginServlet extends HttpServlet {
         Empleado empleado = empleadoDao.validarPass(dni,password);
 
         if (empleado!=null){
+            String rol = empleadoDao.ObtenerRol(empleado.getIdEmpleado());
+            session.setAttribute("rolLogueado",rol);
+
             session.setAttribute("empleadoLogueado",empleado);
+
             session.setMaxInactiveInterval(60*60);
+
+            response.sendRedirect(request.getContextPath()+"/CarteleraServlet");
 
         } else {
             session.setAttribute("error","error al iniciar sesión");
