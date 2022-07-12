@@ -1,7 +1,8 @@
 package com.example.ef_g5.Daos;
 import com.example.ef_g5.Bean.Cine;
 import com.example.ef_g5.Bean.Pelicula;
-import com.example.ef_g5.DTO.CarteleraDTO;
+import com.example.ef_g5.Dto.CarteleraDTO;
+
 import java.sql.*;
 import java.util.ArrayList;
 

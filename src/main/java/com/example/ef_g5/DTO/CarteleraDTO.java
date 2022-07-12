@@ -1,4 +1,4 @@
-package com.example.ef_g5.DTO;
+package com.example.ef_g5.Dto;
 
 public class CarteleraDTO {
 
