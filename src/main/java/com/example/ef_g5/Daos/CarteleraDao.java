@@ -6,18 +6,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class CarteleraDao extends BaseDao{
-
+    //PREGUNTA 2 -> listar funciones
     public ArrayList<CarteleraDTO> listasPeliculas() {
 
         ArrayList<CarteleraDTO> listap = new ArrayList<>();
 
-        String sql = "select c.nombre_comercial, ci.nombre, pe.nombre, ca.3d , ca.doblada, ca.subtitulada\n" +
+        String sql = "select c.nombre_comercial, ci.nombre, pe.nombre, ca.3d , ca.doblada, ca.subtitulada, ca.horario\n" +
                 "from cadena c\n" +
                 "left join cine ci on (ci.idcadena=c.idcadena) \n" +
                 "left join cartelera ca on (ca.idcine=ci.idcine) \n" +
                 "left join pelicula pe on (ca.idpelicula=pe.idpelicula);";
-
-
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             try (ResultSet resultSet = pstmt.executeQuery();) {
@@ -29,8 +27,7 @@ public class CarteleraDao extends BaseDao{
                     c.setTresD(resultSet.getInt(4));
                     c.setDoblada(resultSet.getInt(5));
                     c.setSubtitulada(resultSet.getInt(6));
-
-
+                    c.setHorario(resultSet.getString(7));
                     listap.add(c);
                 }
             }
