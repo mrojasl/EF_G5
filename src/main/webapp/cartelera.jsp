@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="listaCartelera" scope="request" type="java.util.ArrayList<com.example.ef_g5.Dto.CarteleraDTO>"/>
+<jsp:useBean id="empleadoLogueado" scope="session" class="com.example.ef_g5.Bean.Empleado"/>
 <html>
     <head>
         <link rel="shortcut icon" href="https://cdn-icons.flaticon.com/png/512/826/premium/826070.png?token=exp=1656523939~hmac=95e0835542059253ef913f926ef83145">
@@ -44,7 +45,12 @@
         </style>
     </head>
     <body>
-        <jsp:include page="navbar.jsp"/>
+        <jsp:include page="navbar.jsp">
+            <jsp:param name="name" value="<%=empleadoLogueado.getNombre()%>"/>
+            <jsp:param name="last" value="<%=empleadoLogueado.getApellido()%>"/>
+
+        </jsp:include>
+
         <table class="table">
             <thead>
                 <tr>
