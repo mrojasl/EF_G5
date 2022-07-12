@@ -21,7 +21,7 @@
                     <a class="nav-link" href="#">Crear Funcion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cerrar Sesión</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>

@@ -12,8 +12,21 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-        view.forward(request, response);
+        String action = request.getParameter("action") == null ? "login" : request.getParameter("action");
+
+        switch (action) {
+            case "login" -> {
+
+            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+            view.forward(request, response);
+            }
+            case "logout" -> {
+                HttpSession session = request.getSession();
+                session.invalidate();
+                response.sendRedirect(request.getContextPath());
+            }
+        }
+
     }
 
     @Override
