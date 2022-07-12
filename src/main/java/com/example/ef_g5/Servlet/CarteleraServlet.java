@@ -2,6 +2,7 @@ package com.example.ef_g5.Servlet;
 
 import com.example.ef_g5.Bean.Empleado;
 import com.example.ef_g5.Daos.CarteleraDao;
+import com.example.ef_g5.Daos.EmpleadoDao;
 import com.example.ef_g5.Dto.CarteleraDTO;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,7 +25,8 @@ public class CarteleraServlet extends HttpServlet {
         Empleado empleadoLogueado = (Empleado) request.getSession().getAttribute("empleadoLogueado");
         CarteleraDao carteleraDao = new CarteleraDao();
         RequestDispatcher requestDispatcher;
-
+        EmpleadoDao empleadoDao = new EmpleadoDao();
+        if(empleadoDao.ObtenerRol(empleadoLogueado.getIdEmpleado())!=null){
         switch (action) {
             case "cartelera" ->{
                 request.setAttribute("listaCartelera", carteleraDao.listasPeliculas());
@@ -40,6 +42,10 @@ public class CarteleraServlet extends HttpServlet {
 
 
         }
+        }else {
+            response.sendRedirect(request.getContextPath());
+        }
+
 
 
     }
