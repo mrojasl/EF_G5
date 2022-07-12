@@ -1,4 +1,8 @@
 package com.example.ef_g5.Dto;
+import java.io.File;
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.Time;
 
 public class CarteleraDTO {
 
