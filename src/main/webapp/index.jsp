@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:useBean type="com.example.ef_g5.Bean.Empleado" class="com.example.ef_g5.Bean.Empleado" id="empleadoLogueado" scope="session"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,7 +44,7 @@
                 <img class="mb-4 mt-4" src="Inicio_Sesion/logo.jpg" alt=" " width="230" height="230">
                 <p class="text-center" style="color: aliceblue; font-size: 25px" ><b>CinEstudiar Examen Final</b></p>
 
-                <form method="post" action="<%=request.getContextPath()%>/loginServlet?action=login">
+                <form method="post" action="<%=request.getContextPath()%>/LoginServlet">
 
                     <div class="mb-3 mt-3 ms-4 me-4">
                         <input name="dni" type="number" id="form2Example1" class="form-control" max="99999999" />

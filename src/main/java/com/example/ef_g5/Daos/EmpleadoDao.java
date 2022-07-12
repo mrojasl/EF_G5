@@ -46,12 +46,18 @@ public class EmpleadoDao extends BaseDao{
             throw new RuntimeException(e);
         }
 
-        if(Integer.parseInt(em.getDni())-em.getSalario().intValue()==Integer.parseInt(password)){
-            return em;
-        } else{
+        try{if(Integer.parseInt(em.getDni())-em.getSalario().intValue()==Integer.parseInt(password)){
+            return em;}
+        else{
             Empleado em2 = null;
             return em2;
         }
+        } catch (NullPointerException e) {
+            Empleado em2 = null;
+            return em2;
+        }
+
+
     }
 
     public String ObtenerRol(int id){
